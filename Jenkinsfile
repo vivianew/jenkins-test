@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Dino') {
+        stage('Build') {
             steps {
                 sh 'echo "Hello World"'
                 sh '''
@@ -10,5 +10,11 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy') {
+            steps {
+                retry(3) {
+                    sh './flakey-deploy.sh'
+                }
+            }
     }
 }
